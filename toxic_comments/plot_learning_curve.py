@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 
 
 def create_plot(history_file, title):
+    """Creates plots of learning curves for train and validation sets
+    
+    Arguments:
+        history_file {str} -- filepath to binary file with loss history
+        title {str} -- string to use as plot title
+    """
 
     with open(history_file, 'rb') as f:
         training_dict = pickle.load(f)
