@@ -117,3 +117,8 @@ venv.bak/
 /plots/*
 
 
+*.cktp
+*.json
+*.index
+*.meta
+bert_model.ckpt.data-00000-of-00001
