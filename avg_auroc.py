@@ -25,6 +25,8 @@ class AvgAurocCallback (tf.keras.callbacks.Callback):
         self.y_train = y_train
         self.X_val = X_val
         self.y_val = y_val
+        self.roc_train = []
+        self.roc_val = []
         super().__init__()
     def on_epoch_end (self, epoch, logs=None):
         # measure train set average auroc
@@ -33,4 +35,6 @@ class AvgAurocCallback (tf.keras.callbacks.Callback):
         # and val set average auroc
         val_y_hat = self.model.predict(self.X_val)
         val_avg_auroc = avg_auroc(self.y_val, val_y_hat)
+        self.roc_train.append(train_avg_auroc)
+        self.roc_val.append(val_avg_auroc)
         print("\nTrain avg_auroc: {:.3f}, Val avg_auroc: {:.3f}".format(train_avg_auroc, val_avg_auroc))
