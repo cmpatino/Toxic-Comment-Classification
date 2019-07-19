@@ -16,6 +16,8 @@ import tensorflow as tf
 
 from bert import modeling, optimization, tokenization
 
+LABEL_COLUMNS = ['toxic','severe_toxic','obscene','threat','insult','identity_hate']
+
 class InputExample(object):
 
     """A single training/test example for simple sequence classification."""
@@ -325,7 +327,7 @@ def _truncate_seq_pair(tokens_a, tokens_b, max_length):
 
 # This function is not used by this file but is still used by the Colab and
 # people who depend on it.
-def input_fn_builder(features, seq_length, is_training, drop_remainder):
+def input_fn_builder(features, seq_length, is_training, drop_remainder, n_labels):
   """Creates an `input_fn` closure to be passed to TPUEstimator."""
 
   all_input_ids = []
@@ -364,7 +366,7 @@ def input_fn_builder(features, seq_length, is_training, drop_remainder):
                 shape=[num_examples, seq_length],
                 dtype=tf.int32),
         "label_ids":
-            tf.constant(all_label_ids, shape=[num_examples, len(LABEL_COLUMNS)], dtype=tf.int32),
+            tf.constant(all_label_ids, shape=[num_examples, n_labels], dtype=tf.int32),
     })
 
     if is_training:
