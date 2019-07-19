@@ -19,17 +19,17 @@ def create_plot(history_file, title):
     with plt.style.context('seaborn-talk'):
 
         ax = plt.axes()
-        ax.plot(training_dict['loss'], label='Training Loss', marker='^')
-        ax.plot(training_dict['val_loss'], label='Val Loss', marker='s')
+        ax.plot(training_dict['roc_train'], label='Training Loss', marker='^')
+        ax.plot(training_dict['roc_val'], label='Val Loss', marker='s')
         ax.xaxis.set_major_locator(plt.MaxNLocator(n_epochs))
-        ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, y: int(x)))
+        ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, y: int(x + 1)))
         ax.tick_params(axis="x", labelsize=18)
         ax.tick_params(axis="y", labelsize=15)
         plt.title(title, fontsize=25, y=1.05)
         plt.xlabel('Epoch', fontsize=20)
-        plt.ylabel('Loss', fontsize=20)
+        plt.ylabel('AUC-ROC', fontsize=20)
         plt.legend()
-        plt.savefig('../plots/' + title + '.png')
+        plt.savefig('../plots/' + title + '_auc.png')
 
 
 if __name__ == '__main__':
