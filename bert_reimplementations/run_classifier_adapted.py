@@ -5,8 +5,19 @@ We'll leave the adapted methods at the top to make them easier to spot
 
 ADAPTED METHODS START HERE
 """
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+
+import collections
+import csv
+import os
+import tensorflow as tf
+
+from bert import modeling, optimization, tokenization
 
 class InputExample(object):
+
     """A single training/test example for simple sequence classification."""
 
     def __init__(self, guid, text_a, text_b=None, labels=None):
@@ -732,18 +743,6 @@ ADAPTED METHODS STOP HERE
 # limitations under the License.
 """BERT finetuning runner."""
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-import collections
-import csv
-import os
-import modeling
-import optimization
-import tokenization
-import tensorflow as tf
-
 flags = tf.flags
 
 FLAGS = flags.FLAGS
@@ -1034,57 +1033,6 @@ class ColaProcessor(DataProcessor):
   def get_labels(self):
     """See base class."""
     return ["0", "1"]
-
-  def _create_examples(self, lines, set_type):
-    """Creates examples for the training and dev sets."""
-    examples = []
-    for (i, line) in enumerate(lines):
-
-class InputExample(object):
-    """A single training/test example for simple sequence classification."""
-
-    def __init__(self, guid, text_a, text_b=None, labels=None):
-        """Constructs a InputExample.
-
-        Args:
-            guid: Unique id for the example.
-            text_a: string. The untokenized text of the first sequence. For single
-            sequence tasks, only this sequence must be specified.
-            text_b: (Optional) string. The untokenized text of the second sequence.
-            Only must be specified for sequence pair tasks.
-            labels: (Optional) [string]. The label of the example. This should be
-            specified for train and dev examples, but not for test examples.
-        """
-        self.guid = guid
-        self.text_a = text_a
-        self.text_b = text_b
-        self.labels = labels
-
-
-class InputFeatures(object):
-    """A single set of features of data."""
-
-    def __init__(self, input_ids, input_mask, segment_ids, label_ids, is_real_example=True):
-        self.input_ids = input_ids
-        self.input_mask = input_mask
-        self.segment_ids = segment_ids
-        self.label_ids = label_ids,
-        self.is_real_example=is_real_example
-
-
-      # Only the test set has a header
-      if set_type == "test" and i == 0:
-        continue
-      guid = "%s-%s" % (set_type, i)
-      if set_type == "test":
-        text_a = tokenization.convert_to_unicode(line[1])
-        label = "0"
-      else:
-        text_a = tokenization.convert_to_unicode(line[3])
-        label = tokenization.convert_to_unicode(line[1])
-      examples.append(
-          InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
-    return examples
 
 
 if __name__ == "__main__":
