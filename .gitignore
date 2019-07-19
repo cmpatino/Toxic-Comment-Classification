@@ -111,3 +111,5 @@ venv.bak/
 # model files
 *.json
 *.h5
+*.cktp
+*.json
