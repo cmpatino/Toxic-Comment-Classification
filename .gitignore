@@ -116,6 +116,8 @@ venv.bak/
 # plot files
 /plots/*
 
+# credentials
+*.pem
 
 *.cktp
 *.json
