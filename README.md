@@ -1,12 +1,14 @@
 # Toxic Comment Classification Challenge
 
-*[ TODO Add project description]*
+This repository has the solutions we developed for he [Toxic Comment Classification Challenge](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/) on Kaggle. The challenge was to predict different tags for online comments. The possible tags for a comment were:
+
++ toxic
++ severe_toxic
++ obscene
++ threat
++ insult
++ identity_hate
 
 ## Solution
 
-*[ TODO Add project solution]*
-
-## How to Run
-
-*[ TODO Add instructions to run package scritps ]*
-
+Our approach was to implement three different sequence models to compare their performance. The three models were an implementation of BERT, a bidirectional GRU followed by a Capsule layer, and a baseline model with an LSTM layer. 
